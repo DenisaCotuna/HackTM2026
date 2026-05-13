@@ -1,0 +1,90 @@
+.svisit-screen {
+  background-color: #f8f9fa;
+  min-height: 100vh;
+}
+
+.svisit-screen h1 {
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 2rem;
+}
+
+.property-summary-card {
+  background: white;
+  border: none;
+  margin-bottom: 1.5rem;
+}
+
+.property-summary-card .summary-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.property-summary-card .label {
+  color: #666;
+  font-size: 0.875rem;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+.property-summary-card strong {
+  color: #333;
+  font-size: 1rem;
+}
+
+.date-picker-card {
+  background: white;
+  border: none;
+}
+
+.date-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 0.75rem;
+}
+
+.date-option {
+  display: flex;
+  align-items: center;
+}
+
+.date-option input[type="checkbox"] {
+  cursor: pointer;
+  width: 18px;
+  height: 18px;
+  accent-color: #0d6efd;
+}
+
+.date-option label {
+  cursor: pointer;
+  margin-left: 0.5rem;
+  margin-bottom: 0;
+}
+
+.note-card {
+  background: white;
+  border: none;
+}
+
+.note-card textarea {
+  border-radius: 0.5rem;
+  border: 1px solid #dee2e6;
+  padding: 0.75rem;
+  font-size: 0.95rem;
+}
+
+.note-card textarea:focus {
+  border-color: #0d6efd;
+  box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
+}
+
+@media (max-width: 768px) {
+  .date-grid {
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  }
+
+  .svisit-screen h1 {
+    font-size: 1.5rem;
+  }
+}
