@@ -1,0 +1,12 @@
+﻿.register-logo {
+    width: 65%;
+    height: auto;
+    object-fit: contain;
+    transition: transform 0.3s ease;
+    margin: 0 auto;
+}
+
+.register-logo:hover {
+    transform: scale(1.08);
+}
+
