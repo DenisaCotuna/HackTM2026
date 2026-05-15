@@ -64,6 +64,15 @@ export default function LoginPage() {
     return;
   }
 
+  localStorage.setItem("user", JSON.stringify(data.user));
+
+  // Redirect based on role
+  if (data.user.role === "Student") {
+    window.location.href = "/students/dashboard";
+  } else if (data.user.role === "Owner") {
+    window.location.href = "/owners/dashboard";
+  }
+
   alert("Logged in!");
 };
 

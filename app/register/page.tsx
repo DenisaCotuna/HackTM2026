@@ -235,20 +235,21 @@ const countryOptions: CountryOption[] = Object.entries(countryMap).map(
   })
 );
 
-const universityYears: Record<string, string[]> = {
-  uvt: ["1st", "2nd", "3rd", "4th", "Masters", "PhD"],
-  upt: ["1st", "2nd", "3rd", "4th", "5th", "Masters", "PhD"],
-  umft: [
-    "1st",
-    "2nd",
-    "3rd",
-    "4th",
-    "5th",
-    "6th",
-    "Masters",
-    "PhD",
-  ],
-  usabtm: ["1st", "2nd", "3rd", "4th", "Masters", "PhD"],
+const studyYearMap: Record<number, string> = {
+  1: "1st",
+  2: "2nd",
+  3: "3rd",
+  4: "4th",
+  5: "5th",
+  6: "Masters",
+  7: "PhD",
+};
+
+const universityYears: Record<string, number[]> = {
+  uvt: [1, 2, 3, 4, 6, 7],
+  upt: [1, 2, 3, 4, 5, 6, 7],
+  umft: [1, 2, 3, 4, 5, 6, 7],
+  usabtm: [1, 2, 3, 4, 6, 7],
 };
 
 export default function RegisterPage() {
@@ -398,13 +399,18 @@ const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users`, {
     nationalityID: nationality?.value ?? 1,
     genderID: genderMap[gender] ?? 3,
     role: userType === "student" ? "Student" : "Owner",
+    university: userType === "student" ? university : null,
+    fieldOfStudy: userType === "student" ? studyField : null,
+    YearOfStudyID: Number(studyYear) || null,
     profilePhoto: null,
   }),
 });
 
+console.log("Response status:", res.status);
 
   const data = await res.json();
-
+console.log("Response data:", data);
+console.log("Validation errors:", JSON.stringify(data.errors, null, 2));
   if (!res.ok) {
     alert(data.error);
     return;
@@ -712,11 +718,11 @@ const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users`, {
         </option>
 
         {university &&
-          universityYears[university].map((year) => (
-            <option key={year} value={year}>
-              {year}
-            </option>
-          ))}
+                        universityYears[university].map((yearID) => (
+                          <option key={yearID} value={yearID}>
+                            {studyYearMap[yearID]}
+                          </option>
+                        ))}
       </Form.Select>
 
       <Form.Control.Feedback type="invalid">

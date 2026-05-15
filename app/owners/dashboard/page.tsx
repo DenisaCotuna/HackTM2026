@@ -12,13 +12,7 @@ import { FaBell, FaUser, FaEdit, FaTrash, FaCheck } from 'react-icons/fa';
 
 export default function ODashboard() {
     const router = useRouter();
-
-    useEffect(() => {
-        window.scrollTo(0, 0);
-    }, []);
-
-    const [userName, setUserName] = useState('Jane Smith');
-    const fallbackPhoto = 'data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" width="150" height="150"><rect width="100%" height="100%" fill="%23dee2e6"/><text x="50%" y="50%" fill="%23666" font-family="Arial, sans-serif" font-size="16" text-anchor="middle" dominant-baseline="middle">No Image</text></svg>';
+    const [user, setUser] = useState<any>(null);
     
     const [unreadNotifications, setUnreadNotifications] = useState(2);
     const [listings, setListings] = useState([
@@ -43,7 +37,21 @@ export default function ODashboard() {
         { id: 3, date: '2024-10-25', student: 'Bob Johnson', property: '789 Oak St, Iulius Town', status: 'Pending' }
     ]);
 
+    useEffect(() => {
+        const stored = localStorage.getItem("user");
+        if (!stored) { router.push("/"); return; }
+        const parsed = JSON.parse(stored);
+        if (parsed.role !== "Owner") { router.push("/"); return; }
+        setUser(parsed);
+    }, []);
+    if (!user) return <p>Loading...</p>;
+
+    const userName = user.fullName || "Owner";
+    const fallbackPhoto = 'data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" width="150" height="150"><rect width="100%" height="100%" fill="%23dee2e6"/><text x="50%" y="50%" fill="%23666" font-family="Arial, sans-serif" font-size="16" text-anchor="middle" dominant-baseline="middle">No Image</text></svg>';
+    
+
     const handleLogout = () => {
+        localStorage.removeItem("user");
         router.push('/');
     };
 

@@ -73,8 +73,12 @@ const SDashboard: React.FC = () => {
     { id: 3, date: '2024-10-25', address: '789 Oak St, Iulius Town', owner: 'Bob Johnson', status: 'Pending' },
   ]);
 
+  const router = useRouter();
+  const [user, setUser] = useState<any>(null);
+
   const handleLogout = () => {
-    console.log('Logout');
+    localStorage.removeItem("user");
+    router.push("/");
   };
 
   const handleEdit = (id: number) => {
@@ -89,7 +93,17 @@ const SDashboard: React.FC = () => {
     console.log('Post new request');
   };
 
-  const router = useRouter();
+  
+
+ useEffect(() => {
+    const stored = localStorage.getItem("user");
+    if (!stored) { router.push("/"); return; }
+    const parsed = JSON.parse(stored);
+    if (parsed.role !== "Student") { router.push("/"); return; }
+    setUser(parsed);
+    setUserName(parsed.fullName || "Student"); // add this
+  }, []);
+  if (!user) return <p>Loading...</p>;
 
   const handleViewDetails = (id: number, type?: 'appointment' | 'match') => {
     console.log('View details', id, type);

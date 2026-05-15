@@ -18,7 +18,19 @@ namespace StudentHousingTM_API.Controllers
             int NationalityID,
             int GenderID,
             string Role,            // "Student" | "Owner"
-            string? ProfilePhoto
+            string? ProfilePhoto,
+
+        string     University ,
+    string FieldOfStudy ,
+    int YearOfStudyID ,
+  bool IsSmoker ,
+   bool HasPets ,
+
+    //Owner-only
+    int NumberOfProperties,
+       bool RequiresInsurance ,
+    bool AcceptsInternational
+    
         );
 
         public record LoginRequest(
@@ -117,7 +129,8 @@ namespace StudentHousingTM_API.Controllers
             int newID = UserBLL.Insert(
                 req.FullName, req.Email, passwordHash,
                 req.PhoneNumber, req.NationalityID, req.GenderID,
-                req.Role, req.ProfilePhoto
+                req.Role, req.ProfilePhoto,req.University,req.FieldOfStudy, req.YearOfStudyID, req.IsSmoker,
+                req.HasPets, req.NumberOfProperties, req.RequiresInsurance, req.AcceptsInternational
             );
 
             return CreatedAtAction(nameof(GetByID), new { id = newID }, new { userID = newID });

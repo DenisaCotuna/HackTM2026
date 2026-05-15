@@ -77,10 +77,12 @@ namespace StudentHousingTM.BLL
 
         // Inserts a new user, returns the new UserID
         public static int Insert(string fullName, string email, string passwordHash,
-            string phoneNumber, int nationalityID, int genderID, string role, string profilePhoto)
+            string phoneNumber, int nationalityID, int genderID, string role, string profilePhoto,string university,string fieldOfStudy,int yearOfStudyID,
+             bool   isSmoker,bool hasPets,int numberOfProperties,bool requiresInsurance,bool acceptsInternational)
         {
             return UserDAL.InsertUser(fullName, email, passwordHash, phoneNumber,
-                nationalityID, genderID, role, profilePhoto);
+                nationalityID, genderID, role, profilePhoto,university,fieldOfStudy,yearOfStudyID,
+                isSmoker,hasPets,numberOfProperties,requiresInsurance,acceptsInternational);
         }
 
         // Updates an existing user, returns rows affected
