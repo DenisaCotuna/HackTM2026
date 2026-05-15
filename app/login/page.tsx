@@ -63,6 +63,7 @@ export default function LoginPage() {
     alert(data.error);
     return;
   }
+  console.log("BACKEND DATA:", data);
 
   localStorage.setItem("user", JSON.stringify(data.user));
 

@@ -50,6 +50,7 @@ const propertyTypes: SelectOption[] = [
 
 const SRequest: React.FC = () => {
   const router = useRouter();
+  const [user, setUser] = useState<any>(null);
   const [errors, setErrors] = useState<Errors>({});
   const [title, setTitle] = useState('');
   const [preferredArea, setPreferredArea] = useState<MultiValue<SelectOption>>([]);
@@ -100,36 +101,57 @@ const SRequest: React.FC = () => {
 
     return newErrors;
   };
+const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+  event.preventDefault();
+  const formErrors = validateForm();
+  if (Object.keys(formErrors).length > 0) { setErrors(formErrors); return; }
+  setErrors({});
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const formErrors = validateForm();
-    if (Object.keys(formErrors).length > 0) {
-      setErrors(formErrors);
-      setTimeout(() => {
-        const firstErrorField = document.querySelector('.is-invalid');
-        if (firstErrorField) {
-          firstErrorField.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        }
-      }, 100);
-    } else {
-      setErrors({});
-      console.log('Request posted:', {
-        title,
-        preferredArea: preferredArea.map((item) => item.value),
-        minBudget,
-        maxBudget,
-        moveInDate,
-        moveOutDate,
-        propertyType,
-        furnished,
-        utilitiesIncluded,
-        petsAllowed,
-        smokerFriendly,
-        additionalNotes,
-      });
-    }
+  const user = JSON.parse(localStorage.getItem("user") || "{}");
+
+const profileRes = await fetch(
+  `/api/students/by-email?email=${user.email}`
+);
+
+const profileData = await profileRes.json();
+
+const studentProfileID = profileData.studentProfileID;
+
+  const propertyTypeMap: Record<string, number> = {
+    "Room": 1, "Apartment": 2, "Studio": 2, "Any": 1,
   };
+
+  const validationErrors = validateForm();
+
+  if (Object.keys(validationErrors).length > 0) {
+    setErrors(validationErrors);
+    return;
+  }
+  const res = await fetch('/api/requests', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      studentProfileID,
+      title,
+      budgetMin: Number(minBudget),
+      budgetMax: Number(maxBudget),
+      moveInDate,
+      moveOutDate: moveOutDate || null,
+      propertyTypePreferredID: propertyTypeMap[propertyType] ?? 1,
+      furnishedRequired: furnished === "yes" ? true : furnished === "no" ? false : null,
+      utilitiesRequired: utilitiesIncluded,
+      petsAllowed,
+      smokersAllowed: smokerFriendly,
+      additionalNotes: additionalNotes || null,
+    }),
+  });
+
+  const data = await res.json();
+  if (!res.ok) { alert(data.error || "Failed to post request"); return; }
+
+  alert("Request posted!");
+  router.push("/students/dashboard");
+};
 
   const handleCancel = (): void => {
     router.push('/students/dashboard');

@@ -1,87 +1,37 @@
 import { NextRequest, NextResponse } from 'next/server';
 
-export async function GET() {
-  try {
-    const requestsData = {
-      requests: [
-        {
-          id: 1,
-          area: 'City Center',
-          budget: '€500-700',
-          moveInDate: '2024-10-01',
-          status: 'Active',
-        },
-        {
-          id: 2,
-          area: 'Student Complex',
-          budget: '€400-600',
-          moveInDate: '2024-09-15',
-          status: 'Matched',
-        },
-        {
-          id: 3,
-          area: 'Iulius Town',
-          budget: '€600-800',
-          moveInDate: '2024-11-01',
-          status: 'Closed',
-        },
-      ],
-    };
+const API = process.env.API_URL;
 
-    return NextResponse.json(requestsData, { status: 200 });
-  } catch (error) {
-    console.error('Request API error:', error);
-    return NextResponse.json(
-      { error: 'Failed to fetch requests' },
-      { status: 500 }
-    );
-  }
+export async function GET(request: NextRequest) {
+  const { searchParams } = new URL(request.url);
+  const studentProfileID = searchParams.get('studentProfileID');
+
+  const res = await fetch(`${API}/student-requests/by-student/${studentProfileID}`);
+  const data = await res.json();
+
+  if (!res.ok) return NextResponse.json({ error: data.message }, { status: res.status });
+  return NextResponse.json(data);
 }
 
 export async function POST(request: NextRequest) {
-  try {
-    const body = await request.json();
+  const body = await request.json();
 
-    const newRequest = {
-      id: Math.random(),
-      area: body.area,
-      budget: `€${body.minBudget}-${body.maxBudget}`,
-      moveInDate: body.moveInDate,
-      status: 'Active',
-      ...body,
-    };
+  const res = await fetch(`${API}/student-requests`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(body),
+  });
 
-    console.log('New request created:', newRequest);
-
-    return NextResponse.json(
-      { message: 'Request created successfully', data: newRequest },
-      { status: 201 }
-    );
-  } catch (error) {
-    console.error('Request API error:', error);
-    return NextResponse.json(
-      { error: 'Failed to create request' },
-      { status: 500 }
-    );
-  }
+  const data = await res.json();
+  if (!res.ok) return NextResponse.json({ error: data.message }, { status: res.status });
+  return NextResponse.json(data, { status: 201 });
 }
 
 export async function DELETE(request: NextRequest) {
-  try {
-    const { searchParams } = new URL(request.url);
-    const requestId = searchParams.get('id');
+  const { searchParams } = new URL(request.url);
+  const id = searchParams.get('id');
 
-    console.log('Request deleted:', requestId);
-
-    return NextResponse.json(
-      { message: 'Request deleted successfully', id: requestId },
-      { status: 200 }
-    );
-  } catch (error) {
-    console.error('Request API error:', error);
-    return NextResponse.json(
-      { error: 'Failed to delete request' },
-      { status: 500 }
-    );
-  }
+  const res = await fetch(`${API}/student-requests/${id}`, { method: 'DELETE' });
+  if (!res.ok) return NextResponse.json({ error: 'Failed to delete' }, { status: res.status });
+  return NextResponse.json({ message: 'Deleted successfully' });
 }

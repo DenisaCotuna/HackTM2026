@@ -24,6 +24,8 @@ namespace StudentHousingTM.BLL
         public int StatusID { get; set; }
         public DateTime CreatedAt { get; set; }
 
+        public string PreferedAreas{ get; set; }
+
         private static StudentRequestBLL MapFromRow(DataRow row)
         {
             return new StudentRequestBLL
@@ -42,7 +44,8 @@ namespace StudentHousingTM.BLL
                 SmokersAllowed          = (bool)row["SmokersAllowed"],
                 AdditionalNotes         = row["AdditionalNotes"] == DBNull.Value ? null : row["AdditionalNotes"].ToString(),
                 StatusID                = (int)row["StatusID"],
-                CreatedAt               = (DateTime)row["CreatedAt"]
+                CreatedAt               = (DateTime)row["CreatedAt"],
+                 PreferedAreas = row["PreferedAreas"] == DBNull.Value ? null : row["PreferedAreas"].ToString(),
             };
         }
 
