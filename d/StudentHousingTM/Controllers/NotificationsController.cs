@@ -50,9 +50,9 @@ namespace StudentHousingTM_API.Controllers
 
         // PUT /api/notifications/{id}/read
         [HttpPut("{id:int}/read")]
-        public IActionResult MarkAsRead(int id)
+        public IActionResult MarkAsRead(int id,int userID)
         {
-            int rows = NotificationBLL.MarkAsRead(id);
+            int rows = NotificationBLL.MarkAsRead(id,userID);
             if (rows == 0) return NotFound(new { message = "Notification not found." });
             return NoContent();
         }

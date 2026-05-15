@@ -13,17 +13,12 @@ namespace StudentHousingTM.BLL
         public string Email { get; set; }
         public string PasswordHash { get; set; }
         public string PhoneNumber { get; set; }
-        public int NationalityID { get; set; } = 0;
-
-        public string Nationality { get; set; } 
-
+        public int NationalityID { get; set; }
         public int GenderID { get; set; }
-        public string Gender{ get; set; }
-
         public string Role { get; set; }
         public string ProfilePhoto { get; set; }
         public DateTime CreatedAt { get; set; }
-        public bool IsActive { get; set; } = true;
+        public bool IsActive { get; set; }
 
         // -------------------------------------------------------
         // Helper: fills a UserBLL from a DataRow
@@ -37,11 +32,12 @@ namespace StudentHousingTM.BLL
                 Email        = row["Email"].ToString(),
                 PasswordHash = row["PasswordHash"].ToString(),
                 PhoneNumber  = row["PhoneNumber"] == DBNull.Value ? null : row["PhoneNumber"].ToString(),
-                Nationality= (string)row["Nationality"],
-                Gender     = (string)row["Gender"],
+                NationalityID= (int)row["NationalityID"],
+                GenderID     = (int)row["GenderID"],
                 Role         = row["Role"].ToString(),
                 ProfilePhoto = row["ProfilePhoto"] == DBNull.Value ? null : row["ProfilePhoto"].ToString(),
                 CreatedAt    = (DateTime)row["CreatedAt"],
+                IsActive     = (bool)row["IsActive"]
             };
         }
 

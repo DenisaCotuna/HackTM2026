@@ -24,9 +24,9 @@ namespace StudentHousingTM_API.Controllers
 
         // GET /api/messages/by-conversation/{conversationID}
         [HttpGet("by-conversation/{conversationID:int}")]
-        public IActionResult GetByConversation(int conversationID)
+        public IActionResult GetByConversation(int conversationID,int userID)
         {
-            var messages = MessageBLL.GetByConversation(conversationID);
+            var messages = MessageBLL.GetByConversation(conversationID,userID);
             return Ok(messages);
         }
 

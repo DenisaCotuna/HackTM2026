@@ -19,7 +19,7 @@ namespace StudentHousingTM_API.Controllers
 
         public record SetInterestRequest(bool Interested);
 
-        public record RejectMatchRequest(string RejectedBy); // "Student" | "Owner"
+        public record RejectMatchRequest(int RejectedBy); // "Student" | "Owner"
 
         // ── Endpoints ───────────────────────────────────────────────────────────
 
@@ -88,8 +88,7 @@ namespace StudentHousingTM_API.Controllers
         [HttpPut("{id:int}/reject")]
         public IActionResult Reject(int id, [FromBody] RejectMatchRequest req)
         {
-            if (req.RejectedBy != "Student" && req.RejectedBy != "Owner")
-                return BadRequest(new { message = "RejectedBy must be 'Student' or 'Owner'." });
+            
 
             int rows = MatchBLL.Reject(id, req.RejectedBy);
             if (rows == 0) return NotFound(new { message = "Match not found." });

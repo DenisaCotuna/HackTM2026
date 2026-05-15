@@ -33,10 +33,9 @@ namespace StudentHousingTM_DAL
         public static int InsertUser(string fullName, string email, string passwordHash,
             string phoneNumber, int nationalityID, int genderID, string role, string profilePhoto=""
             , string university="",
-            string fieldOfStudy="", int yearOfStudyID = 0, bool isSmoker=false, bool hasPets = false, int numberOfProperties=1,
-            bool requiresInsurance=false, bool acceptsInternational = false)
+            string fieldOfStudy="", int yearOfStudyID = 0, bool isSmoker=false, bool hasPets = false, int numberOfProperties=0,
+            bool requiresInsurance=false, bool acceptsInternational = false, int preferredTenantGenderID=0)
         {
-            int newID = 0;
             SqlParameter[] parameters = {
                 new SqlParameter("@FullName",     fullName),
                 new SqlParameter("@Email",        email),
@@ -54,9 +53,7 @@ namespace StudentHousingTM_DAL
                 new SqlParameter("@NumberOfProperties", numberOfProperties),
                 new SqlParameter("@RequiresInsurance", requiresInsurance),
                 new SqlParameter("@AcceptsInternational", acceptsInternational),
-                new SqlParameter("@NewUserID", SqlDbType.Int) { Direction = ParameterDirection.Output },
-                                new SqlParameter("@NewProfileID", SqlDbType.Int) { Direction = ParameterDirection.Output }
-
+                new SqlParameter("@PreferredTenantGenderID", preferredTenantGenderID)
 
 
 
