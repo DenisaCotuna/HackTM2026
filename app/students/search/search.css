@@ -1,15 +1,14 @@
 .s-search-page {
   min-height: 100vh;
-  background: radial-gradient(circle at top left, rgba(75, 115, 255, 0.12), transparent 24%),
-    linear-gradient(180deg, rgba(251, 253, 255, 0.98), rgba(236, 244, 255, 0.98));
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(59, 130, 246, 0.1) 50%, rgba(34, 197, 94, 0.1) 100%);
   padding-bottom: 40px;
 }
 
 .filter-panel {
-  background: rgba(255,255,255,0.95);
-  border: none;
+  background: linear-gradient(135deg, rgba(255,255,255,0.98), rgba(248,250,252,0.98));
+  border: 2px solid rgba(99, 102, 241, 0.2);
   border-radius: 1.6rem;
-  box-shadow: var(--shadow);
+  box-shadow: 0 4px 20px rgba(99, 102, 241, 0.15);
   position: sticky;
   top: 20px;
   height: fit-content;
@@ -23,6 +22,10 @@
   font-size: 1.35rem;
   margin-bottom: 1.35rem;
   color: #1f2a4a;
+  background: linear-gradient(135deg, #6366f1, #3b82f6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .form-control,
@@ -44,14 +47,17 @@
 }
 
 .listing-card {
-  border: none;
+  border: 2px solid transparent;
   border-radius: 1.4rem;
-  box-shadow: var(--shadow);
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  transition: all 0.3s ease;
+  background: linear-gradient(135deg, rgba(255,255,255,0.98), rgba(250,251,255,0.98));
 }
 
 .listing-card:hover {
-  transform: translateY(-3px);
+  transform: translateY(-8px);
+  border-color: #06b6d4;
+  box-shadow: 0 12px 28px rgba(6, 182, 212, 0.25);
 }
 
 .listing-image-wrapper {
