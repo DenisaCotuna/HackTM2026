@@ -13,6 +13,11 @@
 # testing
 /coverage
 
+.vs/
+bin/
+obj/
+*.vsidx
+
 # next.js
 /.next/
 /out/
