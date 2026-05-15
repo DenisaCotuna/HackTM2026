@@ -1,0 +1,121 @@
+.o-dashboard {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background: linear-gradient(180deg, rgba(247, 250, 255, 0.97), rgba(232, 240, 255, 0.96));
+}
+
+.top-bar {
+    background: rgba(255,255,255,0.98);
+    border-bottom: 1px solid rgba(75,115,255,0.14);
+    box-shadow: 0 18px 44px rgba(45, 66, 130, 0.08);
+    padding: 0 24px;
+}
+
+.welcome-label {
+    font-size: 1.65rem;
+    font-weight: 700;
+    color: #1f2a4a;
+}
+
+.notification-icon {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    margin-right: 20px;
+    cursor: pointer;
+    overflow: visible;
+}
+
+.notification-icon svg {
+    display: block;
+}
+
+.notification-badge {
+    position: absolute;
+    top: 2px;
+    right: -2px;
+    min-width: 24px;
+    height: 24px;
+    line-height: 20px;
+    padding: 0 6px;
+    font-size: 0.75rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--accent);
+    border: 2px solid white;
+    border-radius: 999px;
+}
+
+.dashboard-content h2 {
+    font-size: clamp(1.8rem, 2.1vw, 2.3rem);
+    margin-bottom: 1rem;
+    color: #17284c;
+}
+
+.dashboard-actions .dashboard-action-btn {
+    min-width: 170px;
+    min-height: 48px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.card {
+    border: none;
+    border-radius: 1.4rem;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.card:hover {
+    transform: translateY(-4px);
+}
+
+.card img,
+.card .card-img-top,
+.CardImg {
+    object-fit: cover;
+}
+
+.card-body {
+    padding: 1.4rem;
+}
+
+.card-title {
+    font-size: 1.05rem;
+    font-weight: 700;
+}
+
+.top-bar .nav-link,
+.top-bar .dropdown-toggle {
+    color: var(--primary);
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #4b73ff, #7a9dff);
+    border: none;
+    box-shadow: 0 18px 34px rgba(75, 115, 255, 0.18);
+}
+
+.btn-primary:hover,
+.btn-primary:focus {
+    background: linear-gradient(135deg, #3f5feb, #6888ff);
+}
+
+.badge {
+    border-radius: 10rem;
+    padding: 0.55em 0.82em;
+    font-size: 0.8rem;
+}
+
+@media (max-width: 991px) {
+    .dashboard-content {
+        padding: 28px 18px;
+    }
+}
