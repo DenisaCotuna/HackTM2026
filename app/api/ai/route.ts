@@ -29,6 +29,7 @@ DO NOT say anything to the user like "you previously mentioned"
 DO NOT repeat your question if user answered accordingly, if not, ask the user a more precise question, and explain to him how he should answer more precisely
 DO NOT ask the user for confirmation
 BEFORE asking the user CHECK if you already asked him the same question
+DO NOT QUESTION ANYTHING TAKE DATA AS IS
 `;
 
 export async function POST(req: Request) {
