@@ -146,7 +146,7 @@ const SDashboard: React.FC = () => {
           </Nav.Item>
           <Nav.Item>
             <Dropdown>
-              <Dropdown.Toggle variant="link" id="profile-dropdown">
+              <Dropdown.Toggle variant="link" id="profile-dropdown" className='text-dark' bsPrefix='btn'>
                 <FaUser size={24} />
               </Dropdown.Toggle>
               <Dropdown.Menu>

@@ -16,9 +16,9 @@ export default function ODashboard() {
     
     const [unreadNotifications, setUnreadNotifications] = useState(2);
     const [listings, setListings] = useState([
-        { id: 1, photo: 'https://via.placeholder.com/150', address: '123 Main St, City Center', price: '€600/month', status: 'Active' },
-        { id: 2, photo: 'https://via.placeholder.com/150', address: '456 Elm St, Student Complex', price: '€500/month', status: 'Rented' },
-        { id: 3, photo: 'https://via.placeholder.com/150', address: '789 Oak St, Iulius Town', price: '€700/month', status: 'Paused' }
+        { id: 1, photo: 'https://www.hellolanding.com/blog/wp-content/uploads/2021/11/tmp-a7sfkgim194lbchs6uc096it1m.jpeg', address: '123 Main St, City Center', price: '€600/month', status: 'Active' },
+        { id: 2, photo: 'https://cf.bstatic.com/xdata/images/hotel/max1024x768/548745417.jpg?k=b4ff0d9add9779a4f35296b497a9ac9b6530f20ade695b4a4124caef86c7dc8e&o=', address: '456 Elm St, Student Complex', price: '€500/month', status: 'Rented' },
+        { id: 3, photo: 'https://hips.hearstapps.com/hmg-prod/images/hbx060118obeid01-read-mckendree-large-66e9c350833d0.jpeg?crop=1xw:0.8440797186400938xh;0,0.125xh', address: '789 Oak St, Iulius Town', price: '€700/month', status: 'Paused' }
     ]);
     
     const [perfectMatches] = useState([
@@ -72,11 +72,11 @@ export default function ODashboard() {
     };
 
     const handleViewProfile = (id: number) => {
-        router.push('/students/profile');
-    };
+    router.push(`/owners/students/${id}`);
+};
 
     const handleViewDetails = (id: number, type: string) => {
-        router.push('/match');
+        router.push('/matchMain/appointment');
     };
 
     const getStatusVariant = (status: string) => {
@@ -107,7 +107,7 @@ export default function ODashboard() {
                     </Nav.Item>
                     <Nav.Item>
                         <Dropdown align="end">
-                            <Dropdown.Toggle variant="link" id="profile-dropdown" className="text-dark">
+                            <Dropdown.Toggle variant="link" id="profile-dropdown" className="text-dark" bsPrefix='btn'>
                                 <FaUser size={24} />
                             </Dropdown.Toggle>
                             <Dropdown.Menu>
