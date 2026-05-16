@@ -106,9 +106,13 @@ const SDashboard: React.FC = () => {
   if (!user) return <p>Loading...</p>;
 
   const handleViewDetails = (id: number, type?: 'appointment' | 'match') => {
-    console.log('View details', id, type);
-    router.push('/match');
-  };
+  console.log('View details', id, type);
+  if (type === 'appointment') {
+    router.push('/matchMain/appointment');
+  } else {
+    router.push('/matchMain/match');
+  }
+};
 
   const getStatusVariant = (status: string): string => {
     switch (status) {
@@ -161,9 +165,9 @@ const SDashboard: React.FC = () => {
                 🔎 Search Listings
               </Button>
             </Link>
-            <Link href="/students/request">
+            <Link href="/ai">
               <Button variant="primary" className="dashboard-action-btn" onClick={handlePostNew}>
-                + Post New Request
+                + AI helper
               </Button>
             </Link>
           </div>
