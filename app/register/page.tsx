@@ -408,9 +408,9 @@ const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users`, {
 
 console.log("Response status:", res.status);
 
-  const data = await res.json();
-console.log("Response data:", data);
-console.log("Validation errors:", JSON.stringify(data.errors, null, 2));
+  const text = await res.text();
+console.log("Raw response:", text);
+const data = text ? JSON.parse(text) : {};
   if (!res.ok) {
     alert(data.error);
     return;

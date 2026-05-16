@@ -194,21 +194,21 @@ export default function Match() {
         </Row>
 
         <Row className="mt-4 gx-4 gy-3">
-          <Col md={6}>
-            <Link href="/SVisit">
-              <Button variant="info" className="w-100">
-                📅 Request Visit (Student)
-              </Button>
-            </Link>
-          </Col>
-          <Col md={6}>
-            <Link href="/OVisit">
-              <Button variant="info" className="w-100">
-                📅 Review Visit Request (Owner)
-              </Button>
-            </Link>
-          </Col>
-        </Row>
+  <Col md={6}>
+    <Link href="/students/visit">
+      <Button variant="info" className="w-100">
+        📅 Request Visit (Student)
+      </Button>
+    </Link>
+  </Col>
+  <Col md={6}>
+    <Link href="/owners/visit">
+      <Button variant="info" className="w-100">
+        📅 Review Visit Request (Owner)
+      </Button>
+    </Link>
+  </Col>
+</Row>
 
         <Row className="mt-4 gx-4 gy-3">
           <Col md={12}>
