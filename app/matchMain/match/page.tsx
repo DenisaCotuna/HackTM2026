@@ -14,7 +14,7 @@ const studentProfile = {
 };
 
 const propertyListing = {
-  photo: 'https://via.placeholder.com/420x260?text=Property+Photo',
+  photo: 'https://cdn.prod.website-files.com/65c18a9a4d6c9699ac22d7bd/678ef8cb0b40ffc5fed6efaa_julias-apartment-11.webp',
   address: '123 Main St, City Center',
   price: '€650/month',
   type: 'Room in shared flat',
