@@ -11,6 +11,8 @@ namespace StudentHousingTM.BLL
         public string University { get; set; }
         public string FieldOfStudy { get; set; }
         public int YearOfStudyID { get; set; }
+
+        public string YearOfStudy { get; set; }
         public bool IsSmoker { get; set; }
         public bool HasPets { get; set; }
 
@@ -22,7 +24,7 @@ namespace StudentHousingTM.BLL
                 UserID           = (int)row["UserID"],
                 University       = row["University"].ToString(),
                 FieldOfStudy     = row["FieldOfStudy"].ToString(),
-                YearOfStudyID    = (int)row["YearOfStudyID"],
+                YearOfStudy   = (string)row["YearOfStudy"],
                 IsSmoker         = (bool)row["IsSmoker"],
                 HasPets          = (bool)row["HasPets"]
             };

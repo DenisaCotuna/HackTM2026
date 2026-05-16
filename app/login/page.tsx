@@ -57,24 +57,26 @@ export default function LoginPage() {
     }),
   });
 
-  const data = await res.json();
+  const text = await res.text(); // read as text first
+const data = text ? JSON.parse(text) : {};
 
-  if (!res.ok) {
-    alert(data.error);
-    return;
-  }
+if (!res.ok) {
+  alert(data.error || "Login failed");
+  return;
+}
   console.log("BACKEND DATA:", data);
 
-  localStorage.setItem("user", JSON.stringify(data.user));
+  const actualUser = data.user.data; // ← unwrap the extra level
 
-  // Redirect based on role
-  if (data.user.role === "Student") {
-    window.location.href = "/students/dashboard";
-  } else if (data.user.role === "Owner") {
-    window.location.href = "/owners/dashboard";
-  }
+localStorage.setItem("user", JSON.stringify(actualUser));
+console.log("actual user:", actualUser);
 
-  alert("Logged in!");
+if (actualUser.role === "Student") {
+  window.location.href = "/students/dashboard";
+} else if (actualUser.role === "Owner") {
+  window.location.href = "/owners/dashboard";
+}
+  
 };
 
   return (

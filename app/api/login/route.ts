@@ -19,4 +19,5 @@ export async function POST(req: Request) {
   }
 
   return NextResponse.json({ message: "Login successful", user: data });
+  console.log("role:", data.user.role);
 }
