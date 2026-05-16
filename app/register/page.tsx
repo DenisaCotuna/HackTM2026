@@ -24,51 +24,233 @@ const Select = dynamic(() => import("react-select"), {
 import "./register.css";
 import RegisterLogo from "./logo.png";
 
-const countryOptions = getData().map((country) => ({
-  value: country.code,
-  label: country.name,
-}));
 
-const universityYears: Record<string, string[]> = {
-  uvt: ["1st", "2nd", "3rd", "4th", "Masters", "PhD"],
-  upt: ["1st", "2nd", "3rd", "4th", "5th", "Masters", "PhD"],
-  umft: [
-    "1st",
-    "2nd",
-    "3rd",
-    "4th",
-    "5th",
-    "6th",
-    "Masters",
-    "PhD",
-  ],
-  usabtm: ["1st", "2nd", "3rd", "4th", "Masters", "PhD"],
+const countryMap: Record<string, number> = {
+  Afghanistan: 1,
+  Albania: 2,
+  Algeria: 3,
+  Andorra: 4,
+  Angola: 5,
+  "Antigua and Barbuda": 6,
+  Argentina: 7,
+  Armenia: 8,
+  Australia: 9,
+  Austria: 10,
+  Azerbaijan: 11,
+  Bahamas: 12,
+  Bahrain: 13,
+  Bangladesh: 14,
+  Barbados: 15,
+  Belarus: 16,
+  Belgium: 17,
+  Belize: 18,
+  Benin: 19,
+  Bhutan: 20,
+  Bolivia: 21,
+  "Bosnia and Herzegovina": 22,
+  Botswana: 23,
+  Brazil: 24,
+  Brunei: 25,
+  Bulgaria: 26,
+  "Burkina Faso": 27,
+  Burundi: 28,
+  "Cabo Verde": 29,
+  Cambodia: 30,
+  Cameroon: 31,
+  Canada: 32,
+  "Central African Republic": 33,
+  Chad: 34,
+  Chile: 35,
+  China: 36,
+  Colombia: 37,
+  Comoros: 38,
+  "Congo (Congo-Brazzaville)": 39,
+  "Costa Rica": 40,
+  Croatia: 41,
+  Cuba: 42,
+  Cyprus: 43,
+  "Czech Republic": 44,
+  "Democratic Republic of the Congo": 45,
+  Denmark: 46,
+  Djibouti: 47,
+  Dominica: 48,
+  "Dominican Republic": 49,
+  Ecuador: 50,
+  Egypt: 51,
+  "El Salvador": 52,
+  "Equatorial Guinea": 53,
+  Eritrea: 54,
+  Estonia: 55,
+  Eswatini: 56,
+  Ethiopia: 57,
+  Fiji: 58,
+  Finland: 59,
+  France: 60,
+  Gabon: 61,
+  Gambia: 62,
+  Georgia: 63,
+  Germany: 64,
+  Ghana: 65,
+  Greece: 66,
+  Grenada: 67,
+  Guatemala: 68,
+  Guinea: 69,
+  "Guinea-Bissau": 70,
+  Guyana: 71,
+  Haiti: 72,
+  Honduras: 73,
+  Hungary: 74,
+  Iceland: 75,
+  India: 76,
+  Indonesia: 77,
+  Iran: 78,
+  Iraq: 79,
+  Ireland: 80,
+  Israel: 81,
+  Italy: 82,
+  Jamaica: 83,
+  Japan: 84,
+  Jordan: 85,
+  Kazakhstan: 86,
+  Kenya: 87,
+  Kiribati: 88,
+  Kuwait: 89,
+  Kyrgyzstan: 90,
+  Laos: 91,
+  Latvia: 92,
+  Lebanon: 93,
+  Lesotho: 94,
+  Liberia: 95,
+  Libya: 96,
+  Liechtenstein: 97,
+  Lithuania: 98,
+  Luxembourg: 99,
+  Madagascar: 100,
+  Malawi: 101,
+  Malaysia: 102,
+  Maldives: 103,
+  Mali: 104,
+  Malta: 105,
+  "Marshall Islands": 106,
+  Mauritania: 107,
+  Mauritius: 108,
+  Mexico: 109,
+  Micronesia: 110,
+  Moldova: 111,
+  Monaco: 112,
+  Mongolia: 113,
+  Montenegro: 114,
+  Morocco: 115,
+  Mozambique: 116,
+  Myanmar: 117,
+  Namibia: 118,
+  Nauru: 119,
+  Nepal: 120,
+  Netherlands: 121,
+  "New Zealand": 122,
+  Nicaragua: 123,
+  Niger: 124,
+  Nigeria: 125,
+  "North Korea": 126,
+  "North Macedonia": 127,
+  Norway: 128,
+  Oman: 129,
+  Pakistan: 130,
+  Palau: 131,
+  Palestine: 132,
+  Panama: 133,
+  "Papua New Guinea": 134,
+  Paraguay: 135,
+  Peru: 136,
+  Philippines: 137,
+  Poland: 138,
+  Portugal: 139,
+  Qatar: 140,
+  Romania: 141,
+  Russia: 142,
+  Rwanda: 143,
+  "Saint Kitts and Nevis": 144,
+  "Saint Lucia": 145,
+  "Saint Vincent and the Grenadines": 146,
+  Samoa: 147,
+  "San Marino": 148,
+  "Sao Tome and Principe": 149,
+  "Saudi Arabia": 150,
+  Senegal: 151,
+  Serbia: 152,
+  Seychelles: 153,
+  "Sierra Leone": 154,
+  Singapore: 155,
+  Slovakia: 156,
+  Slovenia: 157,
+  "Solomon Islands": 158,
+  Somalia: 159,
+  "South Africa": 160,
+  "South Korea": 161,
+  "South Sudan": 162,
+  Spain: 163,
+  "Sri Lanka": 164,
+  Sudan: 165,
+  Suriname: 166,
+  Sweden: 167,
+  Switzerland: 168,
+  Syria: 169,
+  Taiwan: 170,
+  Tajikistan: 171,
+  Tanzania: 172,
+  Thailand: 173,
+  "Timor-Leste": 174,
+  Togo: 175,
+  Tonga: 176,
+  "Trinidad and Tobago": 177,
+  Tunisia: 178,
+  Turkey: 179,
+  Turkmenistan: 180,
+  Tuvalu: 181,
+  Uganda: 182,
+  Ukraine: 183,
+  "United Arab Emirates": 184,
+  "United Kingdom": 185,
+  "United States": 186,
+  Uruguay: 187,
+  Uzbekistan: 188,
+  Vanuatu: 189,
+  "Vatican City": 190,
+  Venezuela: 191,
+  Vietnam: 192,
+  Yemen: 193,
+  Zambia: 194,
+  Zimbabwe: 195,
 };
 
-const areaOptions = [
-  { value: "City Center", label: "City Center" },
-  { value: "Student Complex", label: "Student Complex" },
-  { value: "Iulius Town", label: "Iulius Town" },
-  { value: "Buziasului", label: "Buziasului" },
-  { value: "Mehala", label: "Mehala" },
-  { value: "Freidorf", label: "Freidorf" },
-  { value: "Ghiroda", label: "Ghiroda" },
-  { value: "Dumbravita", label: "Dumbravita" },
-  { value: "Lipovei", label: "Lipovei" },
-  { value: "Calea Sagului", label: "Calea Sagului" },
-  { value: "Calea Aradului", label: "Calea Aradului" },
-  { value: "Calea Lugojului", label: "Calea Lugojului" },
-  { value: "Calea Martirilor", label: "Calea Martirilor" },
-  {
-    value: "Calea Torontalului",
-    label: "Calea Torontalului",
-  },
-  {
-    value: "Calea Stan Vidrighin",
-    label: "Calea Stan Vidrighin",
-  },
-  { value: "Other", label: "Other" },
-];
+type CountryOption = {
+  value: number;
+  label: string;
+};
+
+const countryOptions: CountryOption[] = Object.entries(countryMap).map(
+  ([countryName, id]) => ({
+    value: id,
+    label: countryName,
+  })
+);
+
+const studyYearMap: Record<number, string> = {
+  1: "1st",
+  2: "2nd",
+  3: "3rd",
+  4: "4th",
+  5: "5th",
+  6: "Masters",
+  7: "PhD",
+};
+
+const universityYears: Record<string, number[]> = {
+  uvt: [1, 2, 3, 4, 6, 7],
+  upt: [1, 2, 3, 4, 5, 6, 7],
+  umft: [1, 2, 3, 4, 5, 6, 7],
+  usabtm: [1, 2, 3, 4, 6, 7],
+};
 
 export default function RegisterPage() {
   const [errors, setErrors] = useState<
@@ -88,8 +270,7 @@ export default function RegisterPage() {
   const [university, setUniversity] = useState("");
   const [gender, setGender] = useState("");
 
-  const [nationality, setNationality] =
-    useState<any>(null);
+ const [nationality, setNationality] = useState<CountryOption | null>(null);
 
   const [studyField, setStudyField] = useState("");
   const [studyYear, setStudyYear] = useState("");
@@ -168,7 +349,7 @@ export default function RegisterPage() {
     return newErrors;
   };
 
- const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+ const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
   console.log("Submitting form...");
   event.preventDefault();
 
@@ -181,34 +362,55 @@ export default function RegisterPage() {
 
   setErrors({});
 
-   const formData = new FormData();
+  //  const formData = new FormData();
 
-   formData.append("fullName", fullName);
-   formData.append("email", email);
-   formData.append("password", password);
-   formData.append("nationality", nationality?.value || "");
-   formData.append("gender", gender);
-   formData.append("phone", phone);
-   formData.append("userType", userType);
+  //  formData.append("fullName", fullName);
+  //  formData.append("email", email);
+  //  formData.append("password", password);
+  //  formData.append("nationality", nationality?.value || "");
+  //  formData.append("gender", gender);
+  //  formData.append("phone", phone);
+  //  formData.append("userType", userType);
 
-   if (userType === "student") {
-     formData.append("university", university);
-     formData.append("studyField", studyField);
-     formData.append("studyYear", studyYear);
-   }
+  //  if (userType === "student") {
+  //    formData.append("university", university);
+  //    formData.append("studyField", studyField);
+  //    formData.append("studyYear", studyYear);
+  //  }
 
-   if (profilePhoto) {
-     formData.append("profilePhoto", profilePhoto);
-   }
+  //  if (profilePhoto) {
+  //    formData.append("profilePhoto", profilePhoto);
+  //  }
 
-   const res = await fetch("/api/register", {
-     method: "POST",
-     body: formData,
-   });
+   const genderMap: Record<string, number> = {
+  male: 1,
+  female: 2,
+  other: 3,
+};
 
+const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users`, {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({
+    fullName,
+    email,
+    password,
+    phoneNumber: phone,
+    nationalityID: nationality?.value ?? 1,
+    genderID: genderMap[gender] ?? 3,
+    role: userType === "student" ? "Student" : "Owner",
+    university: userType === "student" ? university : null,
+    fieldOfStudy: userType === "student" ? studyField : null,
+    YearOfStudyID: Number(studyYear) || null,
+    profilePhoto: null,
+  }),
+});
+
+console.log("Response status:", res.status);
 
   const data = await res.json();
-
+console.log("Response data:", data);
+console.log("Validation errors:", JSON.stringify(data.errors, null, 2));
   if (!res.ok) {
     alert(data.error);
     return;
@@ -350,16 +552,12 @@ export default function RegisterPage() {
                 </Form.Label>
 
                 <Select
+                  instanceId="nationality-select"
                   options={countryOptions}
                   value={nationality}
-                  onChange={(option) =>
-                    setNationality(
-                      option
-                    )
-                  }
+                  onChange={(option) => setNationality(option as CountryOption | null)}
                   isSearchable
                 />
-
                 {errors.nationality && (
                   <div className="text-danger mt-1">
                     {
@@ -520,11 +718,11 @@ export default function RegisterPage() {
         </option>
 
         {university &&
-          universityYears[university].map((year) => (
-            <option key={year} value={year}>
-              {year}
-            </option>
-          ))}
+                        universityYears[university].map((yearID) => (
+                          <option key={yearID} value={yearID}>
+                            {studyYearMap[yearID]}
+                          </option>
+                        ))}
       </Form.Select>
 
       <Form.Control.Feedback type="invalid">

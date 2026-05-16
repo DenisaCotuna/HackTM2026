@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import {apiRequest} from "@/lib/api";
 
 import { Form, Button } from "react-bootstrap";
 
@@ -13,6 +14,14 @@ export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState<any>({});
+  async function handleLogin(e: { preventDefault: () => void; }) {
+    e.preventDefault();
+    const user = await apiRequest("/users/login", {
+      method: "POST",
+      body: JSON.stringify({ email, password }),
+    });
+    console.log(user);
+  }
 
   const validateForm = () => {
     const newErrors: any = {};
@@ -48,17 +57,30 @@ export default function LoginPage() {
     }),
   });
 
-  const data = await res.json();
+  const text = await res.text(); // read as text first
+const data = text ? JSON.parse(text) : {};
 
-  if (!res.ok) {
-    alert(data.error);
-    return;
-  }
+if (!res.ok) {
+  alert(data.error || "Login failed");
+  return;
+}
+  console.log("BACKEND DATA:", data);
 
-  alert("Logged in!");
+  const actualUser = data.user.data; // ← unwrap the extra level
+
+localStorage.setItem("user", JSON.stringify(actualUser));
+console.log("actual user:", actualUser);
+
+if (actualUser.role === "Student") {
+  window.location.href = "/students/dashboard";
+} else if (actualUser.role === "Owner") {
+  window.location.href = "/owners/dashboard";
+}
+  
 };
 
   return (
+
     <div className="login-wrapper">
       <div className="login-form-container">
         <div className="text-center mb-2">

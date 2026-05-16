@@ -1,32 +1,23 @@
 import { NextResponse } from "next/server";
-import { users } from "../register/route"; // adjust path if needed
 
 export async function POST(req: Request) {
-  console.log(users);
   const { email, password } = await req.json();
 
-  const user = users.find((u) => u.email === email);
-
-  if (!user) {
-    return NextResponse.json(
-      { error: "User not found" },
-      { status: 404 }
-    );
-  }
-
-  if (user.password !== password) {
-    return NextResponse.json(
-      { error: "Invalid password" },
-      { status: 401 }
-    );
-  }
-
-  return NextResponse.json({
-    message: "Login successful",
-    user: {
-      id: user.id,
-      email: user.email,
-      fullName: user.fullName,
-    },
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/login`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ email, password }),
   });
+
+  const data = await res.json();
+
+  if (!res.ok) {
+    return NextResponse.json(
+      { error: data.message || "Login failed" },
+      { status: res.status }
+    );
+  }
+
+  return NextResponse.json({ message: "Login successful", user: data });
+  console.log("role:", data.user.role);
 }
