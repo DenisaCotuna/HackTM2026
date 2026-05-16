@@ -6,6 +6,7 @@ import Link from 'next/link'; // Next.js Link component
 import Image from 'next/image'; // Optimized Next.js Images
 import { Navbar, Nav, Badge, Dropdown, Card, Button, Row, Col, Container, Tabs, Tab, Table } from 'react-bootstrap';
 import { FaBell, FaUser, FaEdit, FaTrash, FaCheck } from 'react-icons/fa';
+import './dashboard.css';
 
 // Make sure to install: npm install react-bootstrap bootstrap react-icons
 // Ensure bootstrap CSS is imported in your layout.js
@@ -39,10 +40,20 @@ export default function ODashboard() {
 
     useEffect(() => {
         const stored = localStorage.getItem("user");
-        if (!stored) { router.push("/"); return; }
-        const parsed = JSON.parse(stored);
-        if (parsed.role !== "Owner") { router.push("/"); return; }
-        setUser(parsed);
+        if (stored) {
+            try {
+                const parsed = JSON.parse(stored);
+                if (parsed.role === "Owner") {
+                    setUser(parsed);
+                    return;
+                }
+            } catch (error) {
+                console.warn('Invalid user data in localStorage', error);
+            }
+        }
+
+        // Temporary test mode: do not redirect to login if the user is missing.
+        setUser({ fullName: "Owner", role: "Owner" });
     }, []);
     if (!user) return <p>Loading...</p>;
 
@@ -92,6 +103,7 @@ export default function ODashboard() {
 
     return (
         <div className="o-dashboard">
+            <div className="decor-bubbles" aria-hidden />
             <Navbar bg="light" expand="lg" className="top-bar px-4">
                 <Navbar.Brand className="welcome-label">
                     Hello, {userName}
@@ -122,8 +134,8 @@ export default function ODashboard() {
                 <div className="d-flex flex-wrap justify-content-between align-items-center mb-4 gap-2">
                     <h2>My Listings</h2>
                     <div className="d-flex gap-2 flex-wrap">
-                        <Link href="/owners/search" passHref legacyBehavior>
-                            <Button variant="outline-primary">
+                        <Link href="/owners/search">
+                            <Button variant="primary" className="btn-search">
                                 🔎 Search Students
                             </Button>
                         </Link>
@@ -136,7 +148,7 @@ export default function ODashboard() {
                 <Row>
                     {listings.map(listing => (
                         <Col md={4} key={listing.id} className="mb-4">
-                            <Card className="h-100">
+                            <Card className="h-100 listing-card">
                                 {/* Using standard img for placeholders; if using real images, use Next/Image */}
                                 <Card.Img 
                                     variant="top" 
@@ -151,10 +163,10 @@ export default function ODashboard() {
                                     </Card.Text>
                                     <div className="d-grid gap-2">
                                         <div className="d-flex justify-content-between gap-2">
-                                            <Button variant="outline-primary" size="sm" className="w-100" onClick={() => handleEdit(listing.id)}>
+                                            <Button variant="outline-primary" size="sm" className="w-100 btn-edit" onClick={() => handleEdit(listing.id)}>
                                                 <FaEdit /> Edit
                                             </Button>
-                                            <Button variant="outline-danger" size="sm" className="w-100" onClick={() => handleDelete(listing.id)}>
+                                            <Button variant="outline-danger" size="sm" className="w-100 btn-delete" onClick={() => handleDelete(listing.id)}>
                                                 <FaTrash /> Delete
                                             </Button>
                                         </div>

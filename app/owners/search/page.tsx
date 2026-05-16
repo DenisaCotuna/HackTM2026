@@ -318,7 +318,7 @@ export default function OSearch() {
                   />
                 </Form.Group>
                 <div className="d-flex gap-2">
-                  <Button variant="primary" onClick={handleSearch} className="flex-grow-1">
+                  <Button variant="primary" onClick={handleSearch} className="flex-grow-1 btn-search">
                     Search
                   </Button>
                   <Button variant="secondary" onClick={handleReset} className="flex-grow-1">

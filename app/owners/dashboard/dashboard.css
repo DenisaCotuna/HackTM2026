@@ -2,7 +2,162 @@
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-    background: linear-gradient(180deg, rgba(247, 250, 255, 0.97), rgba(232, 240, 255, 0.96));
+    background:
+        radial-gradient(circle at 12% 14%, rgba(255, 160, 210, 0.18) 0 120px, transparent 121px),
+        radial-gradient(circle at 88% 18%, rgba(120, 180, 255, 0.16) 0 160px, transparent 161px),
+        radial-gradient(circle at 75% 82%, rgba(120, 255, 200, 0.14) 0 110px, transparent 111px),
+        radial-gradient(circle at 18% 88%, rgba(255, 220, 140, 0.14) 0 90px, transparent 91px),
+        linear-gradient(180deg, rgba(247, 250, 255, 0.97), rgba(232, 240, 255, 0.96));
+    position: relative;
+    overflow-x: hidden;
+}
+
+/* Soft colored bubble decorations */
+.o-dashboard::before,
+.o-dashboard::after {
+    content: '';
+    position: fixed;
+    border-radius: 50%;
+    opacity: 0.18;
+    pointer-events: none;
+    z-index: -1;
+    filter: blur(8px);
+}
+
+/* Blue glowing drop */
+.o-dashboard::before {
+    width: 420px;
+    height: 420px;
+    background:
+        radial-gradient(circle, rgba(75, 115, 255, 0.35), transparent 70%);
+    top: -120px;
+    left: -180px;
+}
+
+/* Pink glowing drop */
+.o-dashboard::after {
+    width: 360px;
+    height: 360px;
+    background:
+        radial-gradient(circle, rgba(255, 160, 210, 0.3), transparent 70%);
+    bottom: -60px;
+    right: -120px;
+}
+
+/* Decorative animated bubbles */
+.decor-bubbles {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: -2;
+    opacity: 1;
+    background-repeat: no-repeat;
+
+    background-image:
+        radial-gradient(circle at 10% 18%, rgba(75,115,255,0.20) 0 150px, transparent 151px),
+        radial-gradient(circle at 82% 10%, rgba(255,192,227,0.18) 0 180px, transparent 181px),
+        radial-gradient(circle at 65% 80%, rgba(144,238,144,0.14) 0 120px, transparent 121px),
+        radial-gradient(circle at 40% 40%, rgba(120,100,255,0.08) 0 270px, transparent 271px),
+
+        radial-gradient(circle at 20% 70%, rgba(255,230,180,0.16) 0 70px, transparent 71px),
+        radial-gradient(circle at 80% 40%, rgba(200,230,255,0.14) 0 60px, transparent 61px),
+        radial-gradient(circle at 50% 15%, rgba(255,220,240,0.15) 0 80px, transparent 81px),
+        radial-gradient(circle at 30% 85%, rgba(200,255,220,0.14) 0 58px, transparent 59px),
+        radial-gradient(circle at 70% 65%, rgba(240,200,255,0.13) 0 48px, transparent 49px),
+
+        radial-gradient(circle at 92% 72%, rgba(255,180,120,0.12) 0 65px, transparent 66px),
+        radial-gradient(circle at 8% 48%, rgba(120,255,230,0.12) 0 55px, transparent 56px),
+        radial-gradient(circle at 58% 52%, rgba(255,140,190,0.10) 0 40px, transparent 41px);
+
+    filter: blur(10px) saturate(120%);
+    mix-blend-mode: screen;
+
+    animation: floatBubbles 18s ease-in-out infinite;
+}
+
+/* Layout fixes */
+.dashboard-content .row > .col-md-4 {
+    display: flex;
+    perspective: 1000px;
+    overflow: visible;
+    margin-bottom: 1.5rem;
+}
+
+/* Listing cards */
+.listing-card,
+.card {
+    width: 100%;
+    min-height: 100%;
+    border: none;
+    border-radius: 1.4rem;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(8px);
+
+    transition:
+        transform 0.32s cubic-bezier(0.22, 1, 0.36, 1),
+        box-shadow 0.32s ease,
+        background 0.32s ease;
+
+    transform-origin: center center;
+    will-change: transform, box-shadow;
+}
+
+/* Fixed hover effect */
+.listing-card:hover,
+.card:hover {
+    transform: translateY(-8px) scale(1.03);
+    box-shadow: 0 28px 70px rgba(75, 115, 255, 0.28);
+    background: rgba(255, 255, 255, 0.99);
+    z-index: 20;
+}
+
+/* Images */
+.card img,
+.card .card-img-top,
+.CardImg {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+
+/* Animation */
+@keyframes floatBubbles {
+    0% {
+        background-position:
+            0 0, 0 0, 0 0, 0 0,
+            0 0, 0 0, 0 0, 0 0,
+            0 0, 0 0, 0 0, 0 0;
+    }
+
+    25% {
+        background-position:
+            12px 30px, -20px 10px, 8px -12px, -10px 18px,
+            6px -8px, -6px 10px, 4px 6px, -4px -8px,
+            10px 4px, -8px 14px, 6px -10px, 12px 8px;
+    }
+
+    50% {
+        background-position:
+            24px 60px, -40px 20px, 16px -24px, -20px 36px,
+            12px -16px, -12px 20px, 8px 12px, -8px -16px,
+            20px 8px, -16px 28px, 12px -20px, 24px 16px;
+    }
+
+    75% {
+        background-position:
+            12px 30px, -20px 10px, 8px -12px, -10px 18px,
+            6px -8px, -6px 10px, 4px 6px, -4px -8px,
+            10px 4px, -8px 14px, 6px -10px, 12px 8px;
+    }
+
+    100% {
+        background-position:
+            0 0, 0 0, 0 0, 0 0,
+            0 0, 0 0, 0 0, 0 0,
+            0 0, 0 0, 0 0, 0 0;
+    }
 }
 
 .top-bar {
@@ -65,24 +220,6 @@
     justify-content: center;
 }
 
-.card {
-    border: none;
-    border-radius: 1.4rem;
-    overflow: hidden;
-    box-shadow: var(--shadow);
-    transition: transform 0.25s ease, box-shadow 0.25s ease;
-}
-
-.card:hover {
-    transform: translateY(-4px);
-}
-
-.card img,
-.card .card-img-top,
-.CardImg {
-    object-fit: cover;
-}
-
 .card-body {
     padding: 1.4rem;
 }
@@ -97,15 +234,43 @@
     color: var(--primary);
 }
 
-.btn-primary {
+/* Buttons */
+.btn-primary,
+.btn-edit,
+.btn-search {
     background: linear-gradient(135deg, #4b73ff, #7a9dff);
     border: none;
-    box-shadow: 0 18px 34px rgba(75, 115, 255, 0.18);
+    color: white;
+    font-weight: 600;
+    box-shadow: 0 8px 16px rgba(75, 115, 255, 0.25);
+    transition: all 0.25s ease;
 }
 
 .btn-primary:hover,
-.btn-primary:focus {
+.btn-primary:focus,
+.btn-edit:hover,
+.btn-edit:focus,
+.btn-search:hover,
+.btn-search:focus {
     background: linear-gradient(135deg, #3f5feb, #6888ff);
+    color: white;
+    box-shadow: 0 12px 24px rgba(75, 115, 255, 0.35);
+}
+
+.btn-delete {
+    background: linear-gradient(135deg, #ff6b6b, #ff8787);
+    border: none;
+    color: white;
+    font-weight: 600;
+    box-shadow: 0 8px 16px rgba(255, 107, 107, 0.25);
+    transition: all 0.25s ease;
+}
+
+.btn-delete:hover,
+.btn-delete:focus {
+    background: linear-gradient(135deg, #ff5252, #ff6b6b);
+    color: white;
+    box-shadow: 0 12px 24px rgba(255, 107, 107, 0.35);
 }
 
 .badge {
@@ -117,5 +282,10 @@
 @media (max-width: 991px) {
     .dashboard-content {
         padding: 28px 18px;
+    }
+
+    .listing-card:hover,
+    .card:hover {
+        transform: translateY(-5px) scale(1.015);
     }
 }
