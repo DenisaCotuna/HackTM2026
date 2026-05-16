@@ -52,7 +52,7 @@ const SDashboard: React.FC = () => {
 
   const [userName, setUserName] = useState<string>('John Doe');
   const fallbackPhoto =
-    'data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" width="150" height="150"><rect width="100%" height="100%" fill="%23dee2e6"/><text x="50%" y="50%" fill="%23666" font-family="Arial, sans-serif" font-size="16" text-anchor="middle" dominant-baseline="middle">No Image</text></svg>';
+  'data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" width="150" height="150"><rect width="100%25" height="100%25" fill="%23dee2e6"/><text x="50%25" y="50%25" fill="%23666" font-family="Arial, sans-serif" font-size="16" text-anchor="middle" dominant-baseline="middle">No Image</text></svg>';
   const [unreadNotifications, setUnreadNotifications] = useState<number>(3);
   const [requests, setRequests] = useState<Request[]>([
     { id: 1, area: 'City Center', budget: '€500-700', moveInDate: '2024-10-01', status: 'Active' },
@@ -60,8 +60,8 @@ const SDashboard: React.FC = () => {
     { id: 3, area: 'Iulius Town', budget: '€600-800', moveInDate: '2024-11-01', status: 'Closed' },
   ]);
   const [perfectMatches, setPerfectMatches] = useState<Match[]>([
-    { id: 1, photo: 'https://via.placeholder.com/150', location: 'City Center', price: '€600/month', owner: 'John Smith', score: 95 },
-    { id: 2, photo: 'https://via.placeholder.com/150', location: 'Student Complex', price: '€500/month', owner: 'Jane Doe', score: 92 },
+    { id: 1, photo: 'https://images.ctfassets.net/pg6xj64qk0kh/2r4QaBLvhQFH1mPGljSdR9/39b737d93854060282f6b4a9b9893202/camden-paces-apartments-buckhead-ga-terraces-living-room-with-den_1.jpg?w=960', location: 'City Center', price: '€600/month', owner: 'John Smith', score: 95 },
+    { id: 2, photo: 'https://draperandkramer.com/wp-content/uploads/2020/04/insights-what-does-a-renovated-apartment-mean-draperandkramer_20200408_header-image.png', location: 'Student Complex', price: '€500/month', owner: 'Jane Doe', score: 92 },
   ]);
   const [suggestions, setSuggestions] = useState<Match[]>([
     { id: 1, photo: 'https://via.placeholder.com/150', location: 'Iulius Town', price: '€700/month', owner: 'Bob Johnson', score: 78 },
